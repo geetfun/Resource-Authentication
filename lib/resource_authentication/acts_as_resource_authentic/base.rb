@@ -54,6 +54,7 @@ if defined?(::ActiveResource)
     class Base
       include ResourceAuthentication::ActsAsResourceAuthentic::Base
       include ResourceAuthentication::ActsAsResourceAuthentic::Email
+      include ResourceAuthentication::ActsAsResourceAuthentic::Password
     end
   end
 end

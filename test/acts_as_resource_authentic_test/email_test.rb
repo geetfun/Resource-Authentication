@@ -42,26 +42,32 @@ module ActsAsResourceAuthenticTest
         assert_equal default, User.validates_format_of_email_field_options
       end
       
-      should "validate length of email field" do
-        u = User.new
-        u.email = "a@a.a"
-        assert !u.valid?
-        assert u.errors.on(:email)
+      context "validating email" do 
+        setup do
+          @user = User.new
+          @user.password = 'somepassword'
+          @user.password_confirmation = 'somepassword'
+        end
         
-        u.email = "skhchiu@gmail.com"
-        assert u.valid?
-        assert !u.errors.on(:email)
-      end
+        should "validate length of email field" do
+          @user.email = "a@a.a"
+          assert !@user.valid?
+          assert @user.errors.on(:email)
+        
+          @user.email = "skhchiu@gmail.com"
+          assert @user.valid?
+          assert !@user.errors.on(:email)
+        end
       
-      should "validate format of email field" do
-        u = User.new
-        u.email = "aaaaaaaaaaaaa"
-        assert !u.valid?
-        assert u.errors.on(:email)
+        should "validate format of email field" do
+          @user.email = "aaaaaaaaaaaaa"
+          assert !@user.valid?
+          assert @user.errors.on(:email)
 
-        u.email = "skhchiu@gmail.com"
-        assert u.valid?
-        assert !u.errors.on(:email)
+          @user.email = "skhchiu@gmail.com"
+          assert @user.valid?
+          assert !@user.errors.on(:email)
+        end
       end
     end
   end
